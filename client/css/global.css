@@ -1,0 +1,14 @@
+/*
+ * FILE   : client/css/global.css
+ * CHỦ FILE: TV1 – Frontend UI/UX (Giao diện tổng thể)
+ * BRANCH : feature/tv1-ui
+ * NHIỆM VỤ: CSS chung
+ * TODO:
+ *   [ ] Container, grid, button, input, card sản phẩm, badge, pagination
+ *   [ ] Breakpoint responsive (mobile/tablet/desktop)
+ * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
+ */
+
+/* TODO */
+body{font-family:var(--font-main);background:var(--color-bg);color:var(--color-text)}
+.container{max-width:1200px;margin:0 auto;padding:16px}

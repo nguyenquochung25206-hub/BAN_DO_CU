@@ -1,0 +1,16 @@
+/*
+ * FILE   : client/css/reset.css
+ * CHỦ FILE: TV1 – Frontend UI/UX (Giao diện tổng thể)
+ * BRANCH : feature/tv1-ui
+ * NHIỆM VỤ: Reset CSS
+ * TODO:
+ *   [ ] Reset margin/padding, box-sizing: border-box
+ * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
+ */
+
+/* TODO */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button,input,select,textarea{font:inherit}

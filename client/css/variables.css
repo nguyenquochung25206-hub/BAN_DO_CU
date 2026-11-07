@@ -1,0 +1,24 @@
+/*
+ * FILE   : client/css/variables.css
+ * CHỦ FILE: TV1 – Frontend UI/UX (Giao diện tổng thể)
+ * BRANCH : feature/tv1-ui
+ * NHIỆM VỤ: Biến CSS dùng chung
+ * TODO:
+ *   [ ] Bảng màu, font chữ, cỡ chữ, spacing, border-radius, shadow
+ *   [ ] Công bố cho 5 thành viên còn lại dùng var(--...)
+ * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
+ */
+
+/* TODO */
+:root{
+  --color-primary:#2e7d32;
+  --color-primary-dark:#1b5e20;
+  --color-accent:#ff9800;
+  --color-bg:#f5f7f5;
+  --color-text:#222;
+  --color-muted:#777;
+  --color-danger:#d32f2f;
+  --font-main:'Segoe UI',Arial,sans-serif;
+  --radius:8px;
+  --shadow:0 2px 8px rgba(0,0,0,.1);
+}
