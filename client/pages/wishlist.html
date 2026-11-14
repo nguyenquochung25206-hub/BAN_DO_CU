@@ -3,8 +3,8 @@ FILE   : client/pages/wishlist.html
 CHỦ FILE: TV5 – User Interaction (Yêu thích & Hồ sơ)
 BRANCH : feature/tv5-user
 NHIỆM VỤ: Danh sách yêu thích
-TODO:
-  [ ] Hiển thị sản phẩm đã lưu, nút bỏ yêu thích
+IMPLEMENTED:
+  [x] Hiển thị sản phẩm đã lưu, nút bỏ yêu thích
 LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
 -->
 <!DOCTYPE html>
@@ -24,14 +24,42 @@ LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước 
   <!-- Header/Footer do TV1 (main.js) tự chèn vào 2 vị trí này -->
   <div id="site-header"></div>
 
-  <main class="container">
-    <h1>Yêu thích</h1>
-    <!-- TODO: xây dựng nội dung trang -->
+  <main class="container tv5-page" id="wishlist-page">
+    <nav class="tv5-topnav" aria-label="Điều hướng tài khoản">
+      <a href="products.html">Khám phá sản phẩm <span aria-hidden="true">↗</span></a>
+    </nav>
+    <div class="tv5-layout">
+      <aside class="tv5-sidebar">
+        <p class="tv5-eyebrow">GÓC CỦA BẠN</p>
+        <nav aria-label="Tài khoản">
+          <a href="profile.html">Hồ sơ cá nhân</a>
+          <a href="wishlist.html" aria-current="page">Sản phẩm yêu thích <span aria-hidden="true">♡</span></a>
+          <a href="my-products.html">Tin đăng của tôi</a>
+        </nav>
+        <p class="tv5-sidebar-note">Mỗi món đồ được dùng tiếp là một lựa chọn tốt hơn cho hành tinh.</p>
+      </aside>
+      <section class="tv5-content" aria-labelledby="wishlist-title">
+        <p class="tv5-eyebrow">LƯU LẠI ĐIỀU BẠN THÍCH</p>
+        <div class="tv5-heading"><h1 id="wishlist-title">Sản phẩm yêu thích</h1><span class="tv5-count" id="wishlist-count">0 sản phẩm</span></div>
+        <p class="tv5-description">Những món đồ bạn đang quan tâm, ở cùng một nơi.</p>
+        <p class="tv5-feedback" id="wishlist-feedback" role="status" aria-live="polite"></p>
+        <div class="tv5-state" id="wishlist-state" role="status">Đang tải danh sách yêu thích…</div>
+        <button type="button" class="btn btn-outline tv5-button tv5-button-secondary" id="wishlist-retry" hidden>Thử lại</button>
+        <div class="grid grid-4 wishlist-grid" id="wishlist-grid" aria-busy="true"></div>
+        <div class="empty-state tv5-state wishlist-empty" id="wishlist-empty" hidden>
+          <span class="wishlist-empty-icon" aria-hidden="true">♡</span>
+          <h2>Chưa có món đồ nào được lưu</h2>
+          <p>Chạm vào trái tim trên sản phẩm bạn thích để lưu lại tại đây.</p>
+          <a class="btn btn-primary tv5-button" href="products.html">Khám phá sản phẩm</a>
+        </div>
+      </section>
+    </div>
   </main>
 
   <div id="site-footer"></div>
   <script src="../js/api.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/auth.js"></script>
   <script src="../js/wishlist.js"></script>
 </body>
 </html>

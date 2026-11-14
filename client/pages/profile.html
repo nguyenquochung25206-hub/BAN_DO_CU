@@ -3,8 +3,8 @@ FILE   : client/pages/profile.html
 CHỦ FILE: TV5 – User Interaction (Yêu thích & Hồ sơ)
 BRANCH : feature/tv5-user
 NHIỆM VỤ: Hồ sơ cá nhân
-TODO:
-  [ ] Xem/sửa họ tên, SĐT, đổi ảnh đại diện
+IMPLEMENTED:
+  [x] Xem/sửa họ tên, SĐT, đổi ảnh đại diện
 LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
 -->
 <!DOCTYPE html>
@@ -18,20 +18,62 @@ LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước 
   <link rel="stylesheet" href="../css/global.css">
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/wishlist.css">
   <link rel="stylesheet" href="../css/profile.css">
 </head>
 <body>
   <!-- Header/Footer do TV1 (main.js) tự chèn vào 2 vị trí này -->
   <div id="site-header"></div>
 
-  <main class="container">
-    <h1>Hồ sơ cá nhân</h1>
-    <!-- TODO: xây dựng nội dung trang -->
+  <main class="container tv5-page" id="profile-page">
+    <nav class="tv5-topnav" aria-label="Điều hướng tài khoản">
+      <a href="products.html">Khám phá sản phẩm <span aria-hidden="true">↗</span></a>
+    </nav>
+    <div class="tv5-layout">
+      <aside class="tv5-sidebar">
+        <p class="tv5-eyebrow">GÓC CỦA BẠN</p>
+        <nav aria-label="Tài khoản">
+          <a href="profile.html" aria-current="page">Hồ sơ cá nhân</a>
+          <a href="wishlist.html">Sản phẩm yêu thích <span aria-hidden="true">♡</span></a>
+          <a href="my-products.html">Tin đăng của tôi</a>
+        </nav>
+        <p class="tv5-sidebar-note">Thông tin liên hệ chính xác giúp việc mua bán thuận tiện hơn.</p>
+      </aside>
+      <section class="tv5-content" aria-labelledby="profile-title">
+        <p class="tv5-eyebrow">TÀI KHOẢN CỦA BẠN</p>
+        <h1 id="profile-title">Hồ sơ cá nhân</h1>
+        <p class="tv5-description">Một chút thông tin để kết nối với nhau dễ dàng hơn.</p>
+        <p class="tv5-feedback" id="profile-feedback" role="status" aria-live="polite"></p>
+        <div class="tv5-state" id="profile-state" role="status">Đang tải hồ sơ…</div>
+        <button type="button" class="btn btn-outline tv5-button tv5-button-secondary" id="profile-retry" hidden>Thử lại</button>
+        <form id="profile-form" class="profile-panel" hidden>
+          <fieldset id="profile-fields">
+            <legend class="profile-sr-only">Thông tin cá nhân</legend>
+            <div class="profile-avatar-row">
+              <div class="profile-avatar-frame"><img id="profile-avatar" alt="Ảnh đại diện của bạn" hidden><span id="profile-initial" aria-hidden="true">R</span></div>
+              <div><h2>Ảnh đại diện</h2><p>JPG, PNG hoặc WebP · Tối đa 5 MB</p>
+                <label class="btn btn-outline tv5-button tv5-button-secondary profile-file-label" for="avatar">Chọn ảnh mới</label>
+                <input id="avatar" name="avatar" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="avatar-filename">
+                <p id="avatar-filename" class="profile-file-note" aria-live="polite">Chưa chọn ảnh mới</p>
+              </div>
+            </div>
+            <div class="profile-form-grid">
+              <div class="form-group profile-field profile-field-wide"><label class="form-label" for="full_name">Họ và tên <span aria-hidden="true">*</span></label><input class="form-input" id="full_name" name="full_name" required maxlength="100" autocomplete="name"></div>
+              <div class="profile-field form-group"><label class="form-label" for="email">Email</label><input class="form-input" id="email" name="email" type="email" readonly autocomplete="email" aria-describedby="email-note"><small id="email-note">Email đăng nhập không thể thay đổi.</small></div>
+              <div class="form-group profile-field"><label class="form-label" for="phone">Số điện thoại</label><input class="form-input" id="phone" name="phone" type="tel" maxlength="20" autocomplete="tel" placeholder="Ví dụ: 0912 345 678"></div>
+            </div>
+            <p class="profile-joined" id="profile-joined"></p>
+            <div class="profile-actions"><button type="button" class="btn btn-outline tv5-button tv5-button-secondary" id="profile-reset">Hủy thay đổi</button><button type="submit" class="btn btn-primary tv5-button" id="profile-save">Lưu thay đổi</button></div>
+          </fieldset>
+        </form>
+      </section>
+    </div>
   </main>
 
   <div id="site-footer"></div>
   <script src="../js/api.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/auth.js"></script>
   <script src="../js/profile.js"></script>
 </body>
 </html>
