@@ -1,13 +1,3 @@
-<!--
-FILE   : client/pages/my-products.html
-CHỦ FILE: TV4 – Seller (Đăng bán & quản lý tin)
-BRANCH : feature/tv4-seller
-NHIỆM VỤ: Quản lý tin đăng
-TODO:
-  [ ] Bảng/lưới tin của tôi + trạng thái (chờ duyệt/đã duyệt/từ chối/đã bán)
-  [ ] Nút sửa, xóa, đánh dấu đã bán
-LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
--->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -22,14 +12,28 @@ LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước 
   <link rel="stylesheet" href="../css/my-products.css">
 </head>
 <body>
-  <!-- Header/Footer do TV1 (main.js) tự chèn vào 2 vị trí này -->
   <div id="site-header"></div>
-
-  <main class="container">
-    <h1>Tin đăng của tôi</h1>
-    <!-- TODO: xây dựng nội dung trang -->
+  <main class="container my-products-page">
+    <header class="my-products-heading">
+      <div><p class="seller-eyebrow">KHÔNG GIAN NGƯỜI BÁN</p><h1>Tin đăng của tôi</h1><p>Quản lý trạng thái và cập nhật các sản phẩm bạn đang bán.</p></div>
+      <a class="btn btn-primary" href="sell.html"><span aria-hidden="true">＋</span> Đăng sản phẩm</a>
+    </header>
+    <section class="seller-toolbar" aria-label="Lọc tin đăng">
+      <div id="seller-status-tabs" class="seller-status-tabs" role="tablist" aria-label="Trạng thái tin">
+        <button type="button" class="is-active" data-status="">Tất cả <span data-count="all">–</span></button>
+        <button type="button" data-status="pending">Chờ duyệt <span data-count="pending">–</span></button>
+        <button type="button" data-status="approved">Đã duyệt <span data-count="approved">–</span></button>
+        <button type="button" data-status="rejected">Bị từ chối <span data-count="rejected">–</span></button>
+        <button type="button" data-status="sold">Đã bán <span data-count="sold">–</span></button>
+      </div>
+      <label class="seller-search"><span class="visually-hidden">Tìm tin đăng</span><input id="seller-search-input" class="form-input" type="search" placeholder="Tìm trong tin đăng…" autocomplete="off"><span aria-hidden="true">⌕</span></label>
+    </section>
+    <div id="seller-feedback" class="seller-feedback" role="status" aria-live="polite" hidden></div>
+    <div id="my-products-list" class="seller-product-list" aria-live="polite"></div>
+    <div id="seller-empty" class="seller-empty" hidden><span class="seller-empty__icon" aria-hidden="true">▧</span><h2>Chưa có tin đăng nào</h2><p>Hãy đăng món đồ đầu tiên của bạn lên REUSE.</p><a class="btn btn-primary" href="sell.html">Đăng sản phẩm</a></div>
+    <div id="seller-loading" class="seller-loading" role="status">Đang tải tin đăng…</div>
+    <nav id="seller-pagination" class="seller-pagination" aria-label="Phân trang" hidden></nav>
   </main>
-
   <div id="site-footer"></div>
   <script src="../js/api.js"></script>
   <script src="../js/main.js"></script>

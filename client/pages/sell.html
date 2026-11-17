@@ -1,13 +1,3 @@
-<!--
-FILE   : client/pages/sell.html
-CHỦ FILE: TV4 – Seller (Đăng bán & quản lý tin)
-BRANCH : feature/tv4-seller
-NHIỆM VỤ: Trang đăng bán
-TODO:
-  [ ] Form: tên, giá, danh mục, mô tả, tình trạng, khu vực, nhiều ảnh
-  [ ] Hiển thị ảnh xem trước
-LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
--->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -22,13 +12,74 @@ LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước 
   <link rel="stylesheet" href="../css/sell.css">
 </head>
 <body>
-  <!-- Header/Footer do TV1 (main.js) tự chèn vào 2 vị trí này -->
   <div id="site-header"></div>
 
-  <main class="container">
-    <h1>Đăng bán sản phẩm</h1>
-    <!-- TODO: xây dựng nội dung trang -->
-    <form id="sell-form" enctype="multipart/form-data"><!-- TODO --></form>
+  <main class="container sell-page">
+    <nav class="sell-breadcrumb" aria-label="Đường dẫn">
+      <a href="../index.html">Trang chủ</a><span aria-hidden="true">›</span><span id="page-context">Đăng bán</span>
+    </nav>
+    <header class="sell-heading">
+      <div><p class="sell-eyebrow">REUSE MARKETPLACE</p><h1 id="sell-title">Đăng bán sản phẩm</h1>
+        <p class="sell-intro">Chia sẻ món đồ bạn không còn dùng và tìm chủ mới cho nó.</p></div>
+      <a class="btn btn-outline" href="my-products.html">Tin đăng của tôi</a>
+    </header>
+
+    <form id="sell-form" class="sell-form" enctype="multipart/form-data" novalidate>
+      <section class="sell-section" aria-labelledby="details-title">
+        <div class="sell-section__heading"><span class="sell-step">01</span><div><h2 id="details-title">Thông tin sản phẩm</h2><p>Các trường có dấu * là bắt buộc.</p></div></div>
+        <div class="sell-fields">
+          <div class="form-group sell-field--wide">
+            <label class="form-label" for="sell-name">Tên sản phẩm <span aria-hidden="true">*</span></label>
+            <input class="form-input" id="sell-name" name="name" type="text" maxlength="200" minlength="3" required placeholder="Ví dụ: Tai nghe Sony WH-1000XM4">
+            <p class="sell-field-error" data-error-for="name" role="alert"></p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sell-price">Giá bán (₫) <span aria-hidden="true">*</span></label>
+            <div class="sell-price-wrap"><input class="form-input" id="sell-price" name="price" type="number" min="1" max="9999999999" step="1" required inputmode="numeric" placeholder="0"><span>₫</span></div>
+            <p class="sell-field-error" data-error-for="price" role="alert"></p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sell-category">Danh mục <span aria-hidden="true">*</span></label>
+            <select class="form-input" id="sell-category" name="category_id" required><option value="">Đang tải danh mục…</option></select>
+            <p class="sell-field-error" data-error-for="category_id" role="alert"></p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sell-condition">Tình trạng <span aria-hidden="true">*</span></label>
+            <select class="form-input" id="sell-condition" name="condition" required>
+              <option value="">Chọn tình trạng</option><option value="new">Mới 100%</option><option value="like_new">Như mới (~99%)</option><option value="good">Tốt (~90%)</option><option value="fair">Khá (~70%)</option>
+            </select>
+            <p class="sell-field-error" data-error-for="condition" role="alert"></p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sell-location">Khu vực <span aria-hidden="true">*</span></label>
+            <input class="form-input" id="sell-location" name="location" type="text" maxlength="255" required placeholder="Ví dụ: Quận 1, TP. Hồ Chí Minh">
+            <p class="sell-field-error" data-error-for="location" role="alert"></p>
+          </div>
+          <div class="form-group sell-field--wide">
+            <label class="form-label" for="sell-description">Mô tả <span aria-hidden="true">*</span></label>
+            <textarea class="form-input sell-description" id="sell-description" name="description" rows="6" maxlength="5000" required placeholder="Mô tả tình trạng, tính năng, phụ kiện đi kèm…"></textarea>
+            <div class="sell-description-meta"><p class="sell-field-error" data-error-for="description" role="alert"></p><span id="description-count">0 / 5000</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sell-section" aria-labelledby="photos-title">
+        <div class="sell-section__heading"><span class="sell-step">02</span><div><h2 id="photos-title">Hình ảnh sản phẩm</h2><p>Thêm 1–5 ảnh rõ nét, tối đa 5 MB mỗi ảnh. Hỗ trợ JPG, PNG và WebP.</p></div></div>
+        <div id="existing-photos" class="sell-photo-grid" aria-label="Ảnh hiện có" hidden></div>
+        <label class="sell-upload" for="sell-images">
+          <span class="sell-upload__icon" aria-hidden="true">＋</span><span class="sell-upload__title">Chọn ảnh sản phẩm</span><span class="sell-upload__hint">Có thể chọn nhiều ảnh cùng lúc</span>
+          <input id="sell-images" name="images" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" multiple>
+        </label>
+        <p class="sell-field-error" data-error-for="images" role="alert"></p>
+        <div id="photo-preview" class="sell-photo-grid" aria-live="polite"></div>
+      </section>
+
+      <div id="sell-message" class="sell-message" role="status" aria-live="polite" hidden></div>
+      <div class="sell-actions">
+        <a class="btn btn-outline" href="my-products.html">Hủy</a>
+        <button id="sell-submit" class="btn btn-primary" type="submit"><span id="submit-label">Đăng sản phẩm</span><span class="sell-spinner" aria-hidden="true" hidden></span></button>
+      </div>
+    </form>
   </main>
 
   <div id="site-footer"></div>
