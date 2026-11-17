@@ -1,17 +1,36 @@
-/*
- * FILE   : server/middleware/adminMiddleware.js
- * CHỦ FILE: TV6 – Backend/Database/Admin & Tích hợp
- * BRANCH : feature/tv6-admin
- * NHIỆM VỤ: Kiểm tra quyền Admin
- * TODO:
- *   [ ] isAdmin: req.user.role === 'admin' (dùng sau verifyToken)
- * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
- */
+'use strict';
 
-// Dùng SAU verifyToken: router.use(verifyToken, isAdmin)
-exports.isAdmin = (req, res, next) => {
-  if (!req.user || req.user.role !== "admin") {
-    return res.status(403).json({ success: false, message: "Chỉ quản trị viên được phép" });
-  }
-  next();
-};
+// Sử dụng SAU verifyToken của TV2; kiểm tra DB mỗi request để role/locked còn hiệu lực.
+function createIsAdmin(pool) {
+  return async function isAdminMiddleware(req, res, next) {
+    try {
+      const id = Number(req.user?.id);
+      if (!Number.isSafeInteger(id) || id <= 0) {
+        return res.status(401).json({ success: false, message: 'Vui lòng đăng nhập' });
+      }
+
+      const [rows] = await pool.query(
+        'SELECT id, role, status FROM users WHERE id = ? LIMIT 1', [id]
+      );
+      const user = rows[0];
+      if (!user || user.status !== 'active') {
+        return res.status(403).json({ success: false, message: 'Tài khoản không được phép truy cập' });
+      }
+      if (user.role !== 'admin') {
+        return res.status(403).json({ success: false, message: 'Chỉ quản trị viên được phép' });
+      }
+      req.admin = { id: user.id, role: user.role };
+      return next();
+    } catch (err) {
+      return next(err);
+    }
+  };
+}
+
+// Lazy-load pool để hàm có thể unit-test với pool giả.
+function isAdmin(req, res, next) {
+  const pool = require('../config/database');
+  return createIsAdmin(pool)(req, res, next);
+}
+
+module.exports = { isAdmin, createIsAdmin };

@@ -32,20 +32,54 @@ app.use("/api/wishlist", require("./routes/wishlistRoutes"));   // TV5
 app.use("/api/users", require("./routes/userRoutes"));          // TV5
 app.use("/api/admin", require("./routes/adminRoutes"));         // TV6
 
+
 app.get("/api/health", async (req, res) => {
-  try { await pool.query("SELECT 1"); res.json({ success: true, db: "ok" }); }
-  catch (e) { res.status(500).json({ success: false, db: e.message }); }
+  try {
+    await pool.query("SELECT 1");
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        status: "ok",
+        database: "connected"
+      }
+    });
+  } catch (error) {
+    console.error("[HEALTH] Database unavailable:", error);
+
+    return res.status(503).json({
+      success: false,
+      message: "Không thể kết nối cơ sở dữ liệu"
+    });
+  }
 });
+
 
 // 404
 app.use("/api", (req, res) => res.status(404).json({ success: false, message: "API không tồn tại" }));
 app.use((req, res) => res.status(404).sendFile(path.join(__dirname, "..", "client", "pages", "404.html")));
 
 // Xử lý lỗi chung
+
 app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(err.status || 500).json({ success: false, message: err.message || "Lỗi máy chủ" });
+  console.error("[SERVER ERROR]", err);
+
+  const status =
+    Number.isInteger(err.status) &&
+    err.status >= 400 &&
+    err.status <= 599
+      ? err.status
+      : 500;
+
+  return res.status(status).json({
+    success: false,
+    message:
+      status >= 500
+        ? "Lỗi máy chủ"
+        : err.message || "Yêu cầu không hợp lệ"
+  });
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`REUSE chạy tại http://localhost:${PORT}`));

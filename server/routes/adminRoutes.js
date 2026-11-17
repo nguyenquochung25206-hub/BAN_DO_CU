@@ -1,23 +1,21 @@
-/*
- * FILE   : server/routes/adminRoutes.js
- * CHỦ FILE: TV6 – Backend/Database/Admin & Tích hợp
- * BRANCH : feature/tv6-admin
- * NHIỆM VỤ: Route /api/admin/*
- * TODO:
- *   [ ] verifyToken + isAdmin cho mọi route
- *   [ ] users, products (approve/reject/delete), categories, stats
- * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
- */
+'use strict';
 
-const express = require("express");
-const router = express.Router();
+// TV6: API theo hợp đồng REUSE tuần 1. KHÔNG bỏ middleware xác thực.
+const router = require('express').Router();
+const { verifyToken } = require('../middleware/authMiddleware'); // TV2 sở hữu
+const { isAdmin } = require('../middleware/adminMiddleware');
+const controller = require('../controllers/adminController');
 
-router.get("/users", (req, res) => res.status(501).json({ success: false, message: "Chưa triển khai: GET /users" }));
-router.put("/users/:id", (req, res) => res.status(501).json({ success: false, message: "Chưa triển khai: PUT /users/:id" }));
-router.get("/products", (req, res) => res.status(501).json({ success: false, message: "Chưa triển khai: GET /products" }));
-router.put("/products/:id/approve", (req, res) => res.status(501).json({ success: false, message: "Chưa triển khai: PUT /products/:id/approve" }));
-router.put("/products/:id/reject", (req, res) => res.status(501).json({ success: false, message: "Chưa triển khai: PUT /products/:id/reject" }));
-router.delete("/products/:id", (req, res) => res.status(501).json({ success: false, message: "Chưa triển khai: DELETE /products/:id" }));
-router.post("/categories", (req, res) => res.status(501).json({ success: false, message: "Chưa triển khai: POST /categories" }));
+router.use(verifyToken, isAdmin);
+
+router.get('/stats', controller.getStats);
+router.get('/users', controller.listUsers);
+router.put('/users/:id', controller.changeUserStatus);
+router.get('/products', controller.listProducts);
+router.put('/products/:id/approve', controller.approveProduct);
+router.put('/products/:id/reject', controller.rejectProduct);
+router.delete('/products/:id', controller.deleteProduct);
+router.post('/categories', controller.createCategory);
+router.put('/categories/:id', controller.updateCategory);
 
 module.exports = router;
