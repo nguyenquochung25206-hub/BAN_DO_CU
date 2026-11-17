@@ -2,10 +2,137 @@
  * FILE   : client/css/products.css
  * CHỦ FILE: TV3 – Product (Danh sách/Tìm kiếm/Chi tiết sản phẩm)
  * BRANCH : feature/tv3-products
- * NHIỆM VỤ: Giao diện danh sách
- * TODO:
- *   [ ] Sidebar lọc, lưới sản phẩm, phân trang
+ * NHIỆM VỤ: Giao diện danh sách: sidebar lọc, lưới sản phẩm, phân trang
+ *
+ * Mọi luật đều nằm trong .products-page để không ảnh hưởng trang khác.
+ * Dùng var(--...) của TV1 (variables.css); giá trị sau dấu phẩy là dự phòng khi biến chưa có.
  * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
  */
 
-/* TODO */
+.products-page [hidden] { display: none !important; }
+
+/* ----- Breadcrumb + tiêu đề */
+.products-page .breadcrumb {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  font-size: 14px; color: var(--color-muted, #777); margin-bottom: 12px;
+}
+.products-page .breadcrumb a { color: var(--color-primary, #2e7d32); }
+.products-page .breadcrumb a:hover { text-decoration: underline; }
+
+.products-header { margin-bottom: 16px; }
+.products-header h1 { font-size: 26px; line-height: 1.25; }
+.products-summary { margin-top: 4px; min-height: 1.4em; color: var(--color-muted, #777); font-size: 14px; }
+
+/* ----- Bố cục 2 cột: sidebar + nội dung */
+.products-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.filter-panel {
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: var(--radius, 8px);
+  padding: 16px;
+  position: sticky;
+  top: 16px;
+}
+.filter-panel .form-group { margin-bottom: 14px; }
+.filter-panel .form-label,
+.filter-panel legend {
+  display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; padding: 0;
+}
+.filter-panel fieldset { border: 0; padding: 0; margin-inline: 0; min-width: 0; }
+.filter-panel .form-input,
+.products-toolbar .form-input {
+  width: 100%; min-width: 0; padding: 8px 10px;
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: var(--radius, 8px);
+  background: var(--color-surface, #fff);
+  color: var(--color-text, #222);
+}
+.filter-panel .form-input:focus,
+.products-toolbar .form-input:focus {
+  outline: 2px solid var(--color-primary, #2e7d32); outline-offset: 1px; border-color: transparent;
+}
+
+.price-range__inputs { display: flex; align-items: center; gap: 8px; }
+.price-range__inputs span { color: var(--color-muted, #777); }
+.products-page .form-error { margin-top: 6px; font-size: 13px; color: var(--color-danger, #d32f2f); }
+
+.filter-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-actions .btn { flex: 1 1 auto; }
+
+/* Nút mở bộ lọc: chỉ hiện trên màn hình nhỏ */
+.filter-toggle { display: none; margin-bottom: 12px; }
+
+/* ----- Thanh sắp xếp */
+.products-toolbar {
+  display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-bottom: 14px;
+}
+.products-toolbar .form-label { margin: 0; font-size: 14px; white-space: nowrap; }
+.products-toolbar .form-input { width: auto; min-width: 160px; }
+
+/* ----- Lưới sản phẩm (class .grid .grid-4 do TV1 định nghĩa; ở đây chỉ chỉnh cho vừa sidebar) */
+.products-page .grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+.products-content { min-width: 0; scroll-margin-top: 80px; }
+#product-list.is-loading { opacity: .55; pointer-events: none; transition: opacity .15s; }
+
+/* ----- Khung xương khi đang tải */
+.product-skeleton {
+  height: 300px;
+  border-radius: var(--radius, 8px);
+  background: linear-gradient(90deg, #ececec 25%, #f6f6f6 37%, #ececec 63%);
+  background-size: 400% 100%;
+  animation: products-shimmer 1.3s ease infinite;
+}
+@keyframes products-shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+@media (prefers-reduced-motion: reduce) { .product-skeleton { animation: none; } }
+
+/* ----- Trạng thái rỗng / lỗi */
+.state-box { margin: 24px 0; }
+.products-page .empty-state {
+  text-align: center; padding: 40px 16px;
+  background: var(--color-surface, #fff);
+  border: 1px dashed var(--color-border, #e0e0e0);
+  border-radius: var(--radius, 8px);
+  color: var(--color-muted, #777);
+}
+.products-page .empty-state p { margin-bottom: 14px; }
+
+/* ----- Phân trang (.pagination do TV1 định nghĩa; nút bên trong là của TV3) */
+.products-page .pagination {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; margin: 24px 0 8px;
+}
+.page-btn {
+  min-width: 38px; height: 38px; padding: 0 12px; cursor: pointer;
+  border: 1px solid var(--color-border, #e0e0e0);
+  background: var(--color-surface, #fff);
+  color: var(--color-text, #222);
+  border-radius: var(--radius, 8px);
+}
+.page-btn:hover:not(:disabled):not(.is-active) { border-color: var(--color-primary, #2e7d32); color: var(--color-primary, #2e7d32); }
+.page-btn.is-active { background: var(--color-primary, #2e7d32); border-color: var(--color-primary, #2e7d32); color: #fff; cursor: default; }
+.page-btn:disabled { opacity: .45; cursor: not-allowed; }
+.page-btn:focus-visible { outline: 2px solid var(--color-primary, #2e7d32); outline-offset: 2px; }
+.page-gap { padding: 0 4px; color: var(--color-muted, #777); }
+
+/* ----- Responsive */
+@media (max-width: 900px) {
+  .products-layout { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .filter-toggle { display: inline-flex; }
+  .filter-panel { display: none; position: static; }
+  .filter-panel.is-open { display: block; }
+  .products-toolbar { justify-content: space-between; }
+}
+@media (max-width: 520px) {
+  .products-header h1 { font-size: 22px; }
+  .products-page .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .page-btn { min-width: 34px; height: 34px; padding: 0 8px; }
+}
