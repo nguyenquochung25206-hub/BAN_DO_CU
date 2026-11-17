@@ -1,15 +1,34 @@
-/*
- * FILE   : server/models/User.js
- * CHỦ FILE: TV2 – Authentication (Đăng ký/Đăng nhập/Xác thực)
- * BRANCH : feature/tv2-auth
- * NHIỆM VỤ: Truy vấn bảng users
- * TODO:
- *   [ ] findByEmail, findById, create
- *   [ ] TV5 sẽ gọi thêm updateProfile (phối hợp)
- * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
- */
+const pool = require('../config/database');
 
-const pool = require("../config/database");
+const User = {
+  findByEmail: async (email) => {
+    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    return rows[0];
+  },
 
-// TODO: viết các hàm theo danh sách ở trên
-module.exports = {};
+  findById: async (id) => {
+    const [rows] = await pool.query(
+      'SELECT id, full_name, email, phone, avatar, role, status, created_at FROM users WHERE id = ?',
+      [id]
+    );
+    return rows[0];
+  },
+
+  create: async ({ full_name, email, password, phone }) => {
+    const [result] = await pool.query(
+      'INSERT INTO users (full_name, email, password, phone, role, status) VALUES (?, ?, ?, ?, ?, ?)',
+      [full_name, email, password, phone || null, 'user', 'active']
+    );
+    return result.insertId;
+  },
+
+  updateProfile: async (id, { full_name, phone, avatar }) => {
+    const [result] = await pool.query(
+      'UPDATE users SET full_name = ?, phone = ?, avatar = COALESCE(?, avatar) WHERE id = ?',
+      [full_name, phone || null, avatar || null, id]
+    );
+    return result.affectedRows > 0;
+  }
+};
+
+module.exports = User;
