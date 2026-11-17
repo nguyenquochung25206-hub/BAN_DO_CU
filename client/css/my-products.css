@@ -1,11 +1,58 @@
-/*
- * FILE   : client/css/my-products.css
- * CHỦ FILE: TV4 – Seller (Đăng bán & quản lý tin)
- * BRANCH : feature/tv4-seller
- * NHIỆM VỤ: Giao diện quản lý tin
- * TODO:
- *   [ ] Bảng, badge trạng thái, nút thao tác
- * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
- */
-
-/* TODO */
+.my-products-page { max-width:1100px; min-height:65vh; padding-top:34px; padding-bottom:64px; }
+.my-products-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:28px; }
+.my-products-heading h1 { margin:0; font-size:clamp(1.8rem,4vw,2.4rem); letter-spacing:-.04em; }
+.my-products-heading p:not(.seller-eyebrow) { margin:8px 0 0; color:var(--color-muted); }
+.seller-eyebrow { margin:0 0 7px; color:var(--color-primary); font-weight:700; font-size:.72rem; letter-spacing:.14em; }
+.my-products-page .btn { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:40px; padding:9px 14px; border-radius:8px; font:inherit; font-weight:700; text-decoration:none; cursor:pointer; }
+.my-products-page .btn-primary { color:#fff; background:var(--color-primary); border:1px solid var(--color-primary); }
+.my-products-page .btn-primary:hover { background:var(--color-primary-dark); }
+.my-products-page .btn-outline { color:#354235; background:white; border:1px solid #cbd5cb; }
+.my-products-page .btn-outline:hover { background:#f4f8f4; border-color:var(--color-primary); }
+.my-products-page .btn-danger-outline { color:#a52828; background:white; border:1px solid #e4baba; }
+.my-products-page .btn-danger-outline:hover { background:#fff4f4; }
+.my-products-page .btn-sm { min-height:34px; padding:7px 11px; font-size:.84rem; }
+.seller-toolbar { display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:18px; padding:10px 0; border-bottom:1px solid #e5eae5; }
+.seller-status-tabs { display:flex; gap:5px; overflow-x:auto; }
+.seller-status-tabs button { flex:none; padding:10px 12px; border:0; border-bottom:2px solid transparent; background:none; color:#637063; font:inherit; font-size:.88rem; cursor:pointer; }
+.seller-status-tabs button span { display:inline-grid; place-items:center; min-width:20px; height:20px; margin-left:3px; padding:0 5px; border-radius:10px; background:#f0f2f0; color:#5d695d; font-size:.73rem; }
+.seller-status-tabs button.is-active { border-bottom-color:var(--color-primary); color:var(--color-primary-dark); font-weight:700; }
+.seller-status-tabs button.is-active span { background:#e6f2e7; color:var(--color-primary-dark); }
+.seller-search { position:relative; display:block; flex:none; width:min(260px,35vw); }
+.seller-search .form-input { width:100%; min-height:40px; padding:9px 34px 9px 12px; border:1px solid #d5ddd5; border-radius:8px; font:inherit; }
+.seller-search > span { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:#738073; font-size:1.25rem; }
+.seller-product-list { display:grid; gap:14px; }
+.seller-product { display:grid; grid-template-columns:170px minmax(0,1fr); gap:20px; padding:15px; border:1px solid #e5eae5; border-radius:13px; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,.045); }
+.seller-product__image { display:grid; place-items:center; overflow:hidden; aspect-ratio:1.2; border-radius:9px; background:#f2f4f2; color:#9aa49a; text-decoration:none; font-size:2rem; }
+.seller-product__image img { width:100%; height:100%; object-fit:cover; transition:transform .2s ease; }
+.seller-product__image:hover img { transform:scale(1.04); }
+.seller-product__content { min-width:0; display:flex; flex-direction:column; align-items:flex-start; }
+.seller-product__top { display:flex; align-items:center; justify-content:space-between; width:100%; gap:12px; }
+.seller-product__date { color:#879187; font-size:.78rem; }
+.seller-badge { display:inline-flex; align-items:center; padding:5px 9px; border-radius:20px; font-size:.76rem; font-weight:700; }
+.seller-badge--pending { color:#8b5700; background:#fff4d8; }
+.seller-badge--approved { color:#24692b; background:#e7f5e8; }
+.seller-badge--rejected { color:#a92a2a; background:#ffebeb; }
+.seller-badge--sold { color:#535d68; background:#edf0f3; }
+.seller-product h2 { margin:9px 0 5px; font-size:1.1rem; line-height:1.35; }
+.seller-product h2 a { color:inherit; text-decoration:none; }
+.seller-product h2 a:hover { color:var(--color-primary); }
+.seller-product__meta { margin:0; color:#707b70; font-size:.85rem; }
+.seller-product__meta span { margin:0 4px; color:#a2aaa2; }
+.seller-product__price { margin:7px 0 12px; color:var(--color-primary-dark); font-size:1.08rem; font-weight:800; }
+.seller-product__reason { margin:-5px 0 12px; color:#a72b2b; font-size:.84rem; }
+.seller-product__actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; }
+.seller-product__actions button:disabled { opacity:.6; cursor:wait; }
+.seller-feedback { margin:14px 0; padding:12px 14px; border:1px solid #b9dfbd; border-radius:9px; color:#1b5e20; background:#edf8ee; }
+.seller-feedback--error { color:#8c2222; border-color:#f2c6c6; background:#fff0f0; }
+.seller-empty { padding:60px 18px; text-align:center; border:1px dashed #d2dbd2; border-radius:14px; background:#fff; }
+.seller-empty__icon { color:#a7b1a7; font-size:2.2rem; }
+.seller-empty h2 { margin:12px 0 7px; font-size:1.2rem; }
+.seller-empty p { margin:0 0 18px; color:var(--color-muted); }
+.seller-empty .btn { color:#fff; background:var(--color-primary); border:1px solid var(--color-primary); }
+.seller-loading { padding:48px 10px; color:var(--color-muted); text-align:center; }
+.seller-pagination { display:flex; align-items:center; justify-content:center; gap:18px; padding-top:24px; color:#5b675b; }
+.seller-pagination button { padding:8px 12px; border:1px solid #d6ded6; border-radius:7px; background:#fff; font:inherit; cursor:pointer; }
+.seller-pagination button:disabled { opacity:.45; cursor:default; }
+.visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+@media(max-width:760px) { .seller-toolbar { align-items:stretch; flex-direction:column; } .seller-search { width:100%; } .seller-product { grid-template-columns:120px minmax(0,1fr); gap:14px; } }
+@media(max-width:520px) { .my-products-heading { align-items:flex-start; flex-direction:column; } .seller-product { grid-template-columns:1fr; } .seller-product__image { aspect-ratio:1.7; } .seller-product__top { align-items:flex-start; } }
