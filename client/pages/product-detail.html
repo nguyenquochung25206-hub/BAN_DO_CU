@@ -2,11 +2,9 @@
 FILE   : client/pages/product-detail.html
 CHỦ FILE: TV3 – Product (Danh sách/Tìm kiếm/Chi tiết sản phẩm)
 BRANCH : feature/tv3-products
-NHIỆM VỤ: Chi tiết sản phẩm
-TODO:
-  [ ] Gallery ảnh, mô tả, giá, tình trạng, khu vực
-  [ ] Thông tin người bán + nút liên hệ
-  [ ] Nút yêu thích (gọi API của TV5)
+NHIỆM VỤ: Chi tiết sản phẩm: thư viện ảnh, giá, mô tả, người bán, nút liên hệ, yêu thích
+THAM SỐ URL: product-detail.html?id=<id sản phẩm>
+THỨ TỰ SCRIPT (theo Biên bản tuần 1): api.js -> main.js -> wishlist.js -> product-detail.js
 LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
 -->
 <!DOCTYPE html>
@@ -26,14 +24,17 @@ LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước 
   <!-- Header/Footer do TV1 (main.js) tự chèn vào 2 vị trí này -->
   <div id="site-header"></div>
 
-  <main class="container">
-    <h1>Chi tiết sản phẩm</h1>
-    <!-- TODO: xây dựng nội dung trang -->
+  <main class="container product-detail-page">
+    <!-- product-detail.js vẽ toàn bộ nội dung vào đây (đang tải / lỗi / chi tiết) -->
+    <div id="detail-root" aria-live="polite">
+      <p class="detail-loading">Đang tải sản phẩm...</p>
+    </div>
   </main>
 
   <div id="site-footer"></div>
   <script src="../js/api.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/wishlist.js"></script>
   <script src="../js/product-detail.js"></script>
 </body>
 </html>
