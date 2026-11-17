@@ -2,9 +2,9 @@
 FILE   : client/pages/products.html
 CHỦ FILE: TV3 – Product (Danh sách/Tìm kiếm/Chi tiết sản phẩm)
 BRANCH : feature/tv3-products
-NHIỆM VỤ: Danh sách sản phẩm
-TODO:
-  [ ] Ô tìm kiếm, bộ lọc danh mục/giá/tình trạng, sắp xếp, phân trang
+NHIỆM VỤ: Danh sách sản phẩm: ô tìm kiếm, bộ lọc danh mục/giá/tình trạng, sắp xếp, phân trang
+THAM SỐ URL: products.html?search=&category_id=&min_price=&max_price=&condition=&sort=&page=
+THỨ TỰ SCRIPT (theo Biên bản tuần 1): api.js -> main.js -> wishlist.js -> products.js
 LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
 -->
 <!DOCTYPE html>
@@ -24,14 +24,88 @@ LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước 
   <!-- Header/Footer do TV1 (main.js) tự chèn vào 2 vị trí này -->
   <div id="site-header"></div>
 
-  <main class="container">
-    <h1>Danh sách sản phẩm</h1>
-    <!-- TODO: xây dựng nội dung trang -->
+  <main class="container products-page">
+    <nav class="breadcrumb" aria-label="Đường dẫn">
+      <a href="../index.html">Trang chủ</a>
+      <span aria-hidden="true">›</span>
+      <span>Sản phẩm</span>
+    </nav>
+
+    <header class="products-header">
+      <h1>Danh sách sản phẩm</h1>
+      <p id="result-summary" class="products-summary" role="status" aria-live="polite"></p>
+    </header>
+
+    <button type="button" id="filter-toggle" class="btn btn-outline btn-sm filter-toggle"
+            aria-expanded="false" aria-controls="filter-panel">Bộ lọc</button>
+
+    <div class="products-layout">
+      <aside id="filter-panel" class="filter-panel" aria-label="Bộ lọc sản phẩm">
+        <form id="filter-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="f-search">Từ khóa</label>
+            <input class="form-input" id="f-search" name="search" type="search" maxlength="100"
+                   placeholder="Tên sản phẩm..." autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="f-category">Danh mục</label>
+            <select class="form-input" id="f-category" name="category_id">
+              <option value="">Tất cả danh mục</option>
+            </select>
+          </div>
+
+          <fieldset class="form-group price-range">
+            <legend class="form-label">Khoảng giá (₫)</legend>
+            <div class="price-range__inputs">
+              <input class="form-input" id="f-min" name="min_price" type="text" inputmode="numeric"
+                     placeholder="Từ" aria-label="Giá từ" autocomplete="off">
+              <span aria-hidden="true">–</span>
+              <input class="form-input" id="f-max" name="max_price" type="text" inputmode="numeric"
+                     placeholder="Đến" aria-label="Giá đến" autocomplete="off">
+            </div>
+            <p id="price-error" class="form-error" role="alert" hidden></p>
+          </fieldset>
+
+          <div class="form-group">
+            <label class="form-label" for="f-condition">Tình trạng</label>
+            <select class="form-input" id="f-condition" name="condition">
+              <option value="">Tất cả tình trạng</option>
+              <option value="new">Mới 100%</option>
+              <option value="like_new">Như mới (~99%)</option>
+              <option value="good">Tốt (~90%)</option>
+              <option value="fair">Khá (~70%)</option>
+            </select>
+          </div>
+
+          <div class="filter-actions">
+            <button type="submit" class="btn btn-primary">Áp dụng</button>
+            <button type="button" id="btn-reset" class="btn btn-outline">Xóa bộ lọc</button>
+          </div>
+        </form>
+      </aside>
+
+      <section id="results" class="products-content" aria-label="Kết quả">
+        <div class="products-toolbar">
+          <label class="form-label" for="f-sort">Sắp xếp</label>
+          <select class="form-input" id="f-sort">
+            <option value="newest">Mới nhất</option>
+            <option value="price_asc">Giá tăng dần</option>
+            <option value="price_desc">Giá giảm dần</option>
+          </select>
+        </div>
+
+        <div id="product-list" class="grid grid-4" aria-live="polite"></div>
+        <div id="state-box" class="state-box" hidden></div>
+        <nav id="pagination" class="pagination" aria-label="Phân trang" hidden></nav>
+      </section>
+    </div>
   </main>
 
   <div id="site-footer"></div>
   <script src="../js/api.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/wishlist.js"></script>
   <script src="../js/products.js"></script>
 </body>
 </html>
