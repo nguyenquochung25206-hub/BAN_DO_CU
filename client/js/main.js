@@ -69,7 +69,7 @@ function renderProductCard(product, isWishlisted = false) {
   return `
     <div class="product-card">
       <div class="product-card__img-wrap">
-        <a href="product-detail.html?id=${product.id}">
+        <a href="/pages/product-detail.html?id=${product.id}">
           <img src="${imageSrc}" alt="${product.name}" class="product-card__img" loading="lazy">
         </a>
         <button 
@@ -84,7 +84,7 @@ function renderProductCard(product, isWishlisted = false) {
       </div>
       <div class="product-card__body">
         <span class="badge">${conditionText}</span>
-        <a href="product-detail.html?id=${product.id}" class="product-card__name" title="${product.name}">
+        <a href="/pages/product-detail.html?id=${product.id}" class="product-card__name" title="${product.name}">
           ${product.name}
         </a>
         <div class="product-card__price">${formatPrice(product.price)}</div>
@@ -118,7 +118,7 @@ function renderHeader() {
 
   headerContainer.innerHTML = `
     <div class="container header-inner">
-      <a href="index.html" class="brand-logo">
+      <a href="/index.html" class="brand-logo">
         <i class="fa-solid fa-recycle"></i> RE<span>USE</span>
       </a>
 
@@ -138,13 +138,13 @@ function renderHeader() {
 
       <div class="header-actions">
         ${user ? `
-          <a href="sell.html" class="btn btn-primary btn-sm">
+          <a href="/pages/sell.html" class="btn btn-primary btn-sm">
             <i class="fa-solid fa-plus"></i> Đăng tin
           </a>
-          <a href="wishlist.html" class="nav-link" title="Danh sách yêu thích">
+          <a href="/pages/wishlist.html" class="nav-link" title="Danh sách yêu thích">
             <i class="fa-regular fa-heart fa-lg"></i>
           </a>
-          <a href="profile.html" class="user-profile-menu" title="Trang cá nhân">
+          <a href="/pages/profile.html" class="user-profile-menu" title="Trang cá nhân">
             <img 
               src="${user.avatar || 'https://ui-avatars.com/api/?background=2E7D32&color=fff&name=' + encodeURIComponent(user.full_name)}" 
               alt="${user.full_name}" 
@@ -152,13 +152,13 @@ function renderHeader() {
             >
             <span style="font-weight: 600;">${user.full_name}</span>
           </a>
-          ${user.role === 'admin' ? `<a href="admin.html" class="btn btn-outline btn-sm">Quản trị</a>` : ''}
+          ${user.role === 'admin' ? `<a href="/pages/admin.html" class="btn btn-outline btn-sm">Quản trị</a>` : ''}
           <button type="button" onclick="handleHeaderLogout()" class="btn btn-outline btn-sm" title="Đăng xuất">
             <i class="fa-solid fa-right-from-bracket"></i>
           </button>
         ` : `
-          <a href="login.html" class="btn btn-outline btn-sm">Đăng nhập</a>
-          <a href="register.html" class="btn btn-primary btn-sm">Đăng ký</a>
+          <a href="/pages/login.html" class="btn btn-outline btn-sm">Đăng nhập</a>
+          <a href="/pages/register.html" class="btn btn-primary btn-sm">Đăng ký</a>
         `}
       </div>
     </div>
@@ -173,7 +173,7 @@ function renderFooter() {
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="brand-logo">
+          <a href="/index.html" class="brand-logo">
             <i class="fa-solid fa-recycle"></i> RE<span>USE</span>
           </a>
           <p style="margin-top: 0.75rem;">Nền tảng mua bán đồ cũ trực tuyến uy tín. Hướng tới tiêu dùng bền vững và bảo vệ môi trường.</p>
@@ -181,17 +181,17 @@ function renderFooter() {
         <div>
           <h4 class="footer-title">Khám Phá</h4>
           <div class="footer-links">
-            <a href="products.html">Tất cả sản phẩm</a>
-            <a href="products.html?sort=newest">Mới đăng gần đây</a>
-            <a href="sell.html">Đăng bán đồ cũ</a>
+            <a href="/pages/products.html">Tất cả sản phẩm</a>
+            <a href="/pages/products.html?sort=newest">Mới đăng gần đây</a>
+            <a href="/pages/sell.html">Đăng bán đồ cũ</a>
           </div>
         </div>
         <div>
           <h4 class="footer-title">Tài Khoản</h4>
           <div class="footer-links">
-            <a href="profile.html">Trang cá nhân</a>
-            <a href="wishlist.html">Danh sách yêu thích</a>
-            <a href="login.html">Đăng nhập / Đăng ký</a>
+            <a href="/pages/profile.html">Trang cá nhân</a>
+            <a href="/pages/wishlist.html">Danh sách yêu thích</a>
+            <a href="/pages/login.html">Đăng nhập / Đăng ký</a>
           </div>
         </div>
         <div>
@@ -210,7 +210,7 @@ function renderFooter() {
 function handleHeaderSearch(e) {
   e.preventDefault();
   const keyword = document.getElementById('header-search-input').value.trim();
-  window.location.href = `products.html?search=${encodeURIComponent(keyword)}`;
+  window.location.href = `/pages/products.html?search=${encodeURIComponent(keyword)}`;
 }
 
 function handleHeaderLogout() {
@@ -219,7 +219,7 @@ function handleHeaderLogout() {
   } else {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    window.location.href = 'login.html';
+    window.location.href = '/pages/login.html';
   }
 }
 
