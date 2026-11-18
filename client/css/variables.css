@@ -1,24 +1,24 @@
-/*
- * FILE   : client/css/variables.css
- * CHỦ FILE: TV1 – Frontend UI/UX (Giao diện tổng thể)
- * BRANCH : feature/tv1-ui
- * NHIỆM VỤ: Biến CSS dùng chung
- * TODO:
- *   [ ] Bảng màu, font chữ, cỡ chữ, spacing, border-radius, shadow
- *   [ ] Công bố cho 5 thành viên còn lại dùng var(--...)
- * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
- */
+:root {
+  /* Bảng màu chuẩn theo Biên bản thống nhất tuần 1 */
+  --color-primary: #2E7D32;
+  --color-primary-dark: #1B5E20;
+  --color-accent: #FF9800;
+  --color-bg: #F5F7F5;
+  --color-surface: #FFFFFF;
+  --color-border: #E0E0E0;
+  --color-text: #222222;
+  --color-muted: #777777;
+  --color-danger: #D32F2F;
+  --color-warning: #F9A825;
+  --color-success: #388E3C;
+  --color-sold: #9E9E9E;
 
-/* TODO */
-:root{
-  --color-primary:#2e7d32;
-  --color-primary-dark:#1b5e20;
-  --color-accent:#ff9800;
-  --color-bg:#f5f7f5;
-  --color-text:#222;
-  --color-muted:#777;
-  --color-danger:#d32f2f;
-  --font-main:'Segoe UI',Arial,sans-serif;
-  --radius:8px;
-  --shadow:0 2px 8px rgba(0,0,0,.1);
+  /* Biến phụ trợ đồng bộ với bảng màu trên */
+  --color-primary-light: #E8F5E9;
+  --color-accent-dark: #F57C00;
+  --font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  --radius: 8px;
+  --shadow-sm: 0 2px 8px rgba(34, 34, 34, 0.06);
+  --shadow-md: 0 6px 18px rgba(34, 34, 34, 0.1);
+  --transition: all 0.25s ease;
 }

@@ -1,42 +1,94 @@
-<!--
-FILE   : client/index.html
-CHỦ FILE: TV1 – Frontend UI/UX (Giao diện tổng thể)
-BRANCH : feature/tv1-ui
-NHIỆM VỤ: Trang chủ
-TODO:
-  [ ] Logo + thanh điều hướng + thanh tìm kiếm
-  [ ] Banner quảng cáo
-  [ ] Danh mục sản phẩm (GET /api/categories)
-  [ ] Sản phẩm mới đăng / nổi bật / giá tốt (GET /api/products)
-  [ ] Footer + thông tin liên hệ
-LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
--->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>REUSE – Chợ đồ cũ trực tuyến</title>
-  <link rel="stylesheet" href="css/reset.css">
+  <title>REUSE - Website Mua Bán Đồ Cũ Trực Tuyến</title>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS Dùng Chung (Bắt buộc variables.css trước global.css) -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-  <div id="site-header"></div>
+
+  <!-- Header dùng chung (render bởi main.js) -->
+  <header id="site-header" class="site-header"></header>
 
   <main>
-    <section id="banner"><!-- TODO: banner --></section>
-    <section id="categories"><!-- TODO: danh mục --></section>
-    <section id="new-products"><!-- TODO: sản phẩm mới đăng --></section>
-    <section id="featured-products"><!-- TODO: sản phẩm nổi bật --></section>
-    <section id="deal-products"><!-- TODO: sản phẩm giá tốt --></section>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="fa-solid fa-leaf"></i> Sống Xanh & Tiết Kiệm Cùng REUSE
+          </div>
+          <h1 class="hero-title">Trao Đồ Cũ, <br><span>Nhận Giá Trị Mới</span></h1>
+          <p class="hero-subtitle">
+            Nền tảng mua bán đồ cũ trực tuyến uy tín, hiện đại. Nơi hàng ngàn món đồ chất lượng tìm thấy chủ nhân mới mỗi ngày.
+          </p>
+          <div class="hero-actions">
+            <a href="sell.html" class="btn btn-primary">
+              <i class="fa-solid fa-plus-circle"></i> Đăng Bán Ngay
+            </a>
+            <a href="products.html" class="btn btn-outline">
+              <i class="fa-solid fa-compass"></i> Săn Đồ Cũ Chất
+            </a>
+          </div>
+        </div>
+        <div class="hero-img-box">
+          <img 
+            src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80" 
+            alt="REUSE Banner" 
+            class="hero-img-main"
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- DANH MỤC NỔI BẬT -->
+    <section class="categories-section container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Danh Mục Nổi Bật</h2>
+          <p style="color: var(--color-muted);">Khám phá các sản phẩm theo từng nhóm ngành</p>
+        </div>
+        <a href="products.html" class="btn btn-outline btn-sm">
+          Xem tất cả <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+      <div id="category-container" class="category-grid"></div>
+    </section>
+
+    <!-- SẢN PHẨM MỚI ĐĂNG -->
+    <section class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Sản Phẩm Mới Đăng</h2>
+          <p style="color: var(--color-muted);">Những món đồ chất lượng vừa lên kệ</p>
+        </div>
+        <a href="products.html?sort=newest" class="btn btn-outline btn-sm">
+          Xem kho đồ cũ <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Lưới 4 cột chuẩn class .grid-4 -->
+      <div id="home-products-grid" class="grid-4"></div>
+    </section>
   </main>
 
-  <div id="site-footer"></div>
+  <!-- Footer dùng chung (render bởi main.js) -->
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <!-- Toast Notifications Container -->
+  <div id="toast-container"></div>
+
+  <!-- Thứ tự nhúng script bắt buộc theo Mục 6.4: api.js -> main.js -> wishlist.js -> page js -->
   <script src="js/api.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>
