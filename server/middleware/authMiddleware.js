@@ -1,16 +1,26 @@
-/*
- * FILE   : server/middleware/authMiddleware.js
- * CHỦ FILE: TV2 – Authentication (Đăng ký/Đăng nhập/Xác thực)
- * BRANCH : feature/tv2-auth
- * NHIỆM VỤ: Kiểm tra đăng nhập
- * TODO:
- *   [ ] verifyToken: đọc header Authorization: Bearer <token>, gán req.user
- *   [ ] Từ chối tài khoản bị khóa
- * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
- */
+const jwt = require('jsonwebtoken');
 
-// TODO (TV2): hiện tại là bản khung để server chạy được.
-// const jwt = require("jsonwebtoken");
-exports.verifyToken = (req, res, next) => {
-  return res.status(501).json({ success: false, message: "TV2 chưa triển khai verifyToken" });
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({
+      success: false,
+      message: 'Vui lòng đăng nhập để tiếp tục.'
+    });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      message: 'Phiên đăng nhập không hợp lệ hoặc đã hết hạn.'
+    });
+  }
 };
+
+module.exports = { verifyToken };

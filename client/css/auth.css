@@ -1,11 +1,121 @@
-/*
- * FILE   : client/css/auth.css
- * CHỦ FILE: TV2 – Authentication (Đăng ký/Đăng nhập/Xác thực)
- * BRANCH : feature/tv2-auth
- * NHIỆM VỤ: Giao diện xác thực
- * TODO:
- *   [ ] Style form login/register, thông báo lỗi
- * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
- */
+.auth-wrapper {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  background-color: var(--bg-light, #f5f7fa);
+}
 
-/* TODO */
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--white, #ffffff);
+  border-radius: var(--radius-md, 12px);
+  box-shadow: var(--shadow-md, 0 4px 20px rgba(0, 0, 0, 0.08));
+  padding: 32px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-header h1 {
+  font-size: 1.75rem;
+  color: var(--primary-color, #2e7d32);
+  margin-bottom: 8px;
+}
+
+.auth-header p {
+  color: var(--text-muted, #666666);
+  font-size: 0.95rem;
+}
+
+.auth-form .form-group {
+  margin-bottom: 16px;
+}
+
+.auth-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-color, #333333);
+  font-size: 0.9rem;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: var(--radius-sm, 8px);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--primary-color, #2e7d32);
+}
+
+.auth-alert {
+  padding: 12px;
+  border-radius: var(--radius-sm, 8px);
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.auth-alert.error {
+  display: block;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #f87171;
+}
+
+.auth-alert.success {
+  display: block;
+  background-color: #dcfce7;
+  color: #15803d;
+  border: 1px solid #4ade80;
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color, #2e7d32);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm, 8px);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 8px;
+}
+
+.btn-auth:hover {
+  opacity: 0.9;
+}
+
+.btn-auth:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--text-muted, #666666);
+}
+
+.auth-footer a {
+  color: var(--primary-color, #2e7d32);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}

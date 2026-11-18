@@ -1,18 +1,9 @@
-<!--
-FILE   : client/pages/register.html
-CHỦ FILE: TV2 – Authentication (Đăng ký/Đăng nhập/Xác thực)
-BRANCH : feature/tv2-auth
-NHIỆM VỤ: Trang đăng ký
-TODO:
-  [ ] Form họ tên, email, SĐT, mật khẩu, nhập lại mật khẩu
-LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
--->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đăng ký | REUSE</title>
+  <title>Đăng ký tài khoản - REUSE</title>
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/global.css">
@@ -21,16 +12,54 @@ LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước 
   <link rel="stylesheet" href="../css/auth.css">
 </head>
 <body>
-  <!-- Header/Footer do TV1 (main.js) tự chèn vào 2 vị trí này -->
   <div id="site-header"></div>
 
-  <main class="container">
-    <h1>Đăng ký</h1>
-    <!-- TODO: xây dựng nội dung trang -->
-    <form id="register-form"><!-- TODO --></form>
+  <main class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1>Đăng ký tài khoản</h1>
+        <p>Tham gia cộng đồng mua bán đồ cũ tiết kiệm & bền vững</p>
+      </div>
+
+      <div id="auth-message" class="auth-alert"></div>
+
+      <form id="register-form" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="full_name">Họ và tên *</label>
+          <input type="text" id="full_name" name="full_name" placeholder="Nguyễn Văn A" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="nhapemail@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Số điện thoại</label>
+          <input type="tel" id="phone" name="phone" placeholder="0901234567">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mật khẩu (tối thiểu 6 ký tự) *</label>
+          <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm_password">Nhập lại mật khẩu *</label>
+          <input type="password" id="confirm_password" name="confirm_password" placeholder="Xác nhận mật khẩu" required>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn-auth">Đăng ký</button>
+      </form>
+
+      <div class="auth-footer">
+        Đã có tài khoản? <a href="login.html">Đăng nhập</a>
+      </div>
+    </div>
   </main>
 
   <div id="site-footer"></div>
+
   <script src="../js/api.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/auth.js"></script>
