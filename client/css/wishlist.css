@@ -1,11 +1,41 @@
-/*
- * FILE   : client/css/wishlist.css
- * CHỦ FILE: TV5 – User Interaction (Yêu thích & Hồ sơ)
- * BRANCH : feature/tv5-user
- * NHIỆM VỤ: Giao diện yêu thích
- * TODO:
- *   [ ] Lưới sản phẩm yêu thích
- * LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
- */
-
-/* TODO */
+/* TV5 – dùng biến/class chung tuần 1, không định nghĩa lại thẻ sản phẩm TV1. */
+.tv5-page { padding-top: 24px; padding-bottom: 72px; line-height: 1.6; }
+.tv5-page [hidden] { display: none !important; }
+.tv5-topnav { display: flex; justify-content: flex-end; padding-bottom: 24px; border-bottom: 1px solid var(--color-border, var(--color-muted)); }
+.tv5-topnav a { font-size: 14px; font-weight: 600; color: var(--color-primary-dark); }
+.tv5-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; padding-top: 36px; }
+.tv5-eyebrow { color: var(--color-primary); font-size: 11px; font-weight: 700; letter-spacing: 1.8px; margin-bottom: 12px; }
+.tv5-sidebar nav { display: grid; gap: 6px; }
+.tv5-sidebar nav a { padding: 12px 14px; border-radius: var(--radius); font-size: 14px; display: flex; justify-content: space-between; }
+.tv5-sidebar nav a:hover { color: var(--color-primary-dark); }
+.tv5-sidebar nav a[aria-current="page"] { color: var(--color-primary-dark); background: var(--color-surface, var(--color-bg)); box-shadow: inset 3px 0 var(--color-primary); font-weight: 600; }
+.tv5-sidebar-note { margin: 34px 14px; color: var(--color-muted); font-size: 13px; border-top: 1px solid var(--color-border, var(--color-muted)); padding-top: 20px; }
+.tv5-content { min-width: 0; }
+.tv5-content h1 { font-size: clamp(26px, 3vw, 34px); line-height: 1.25; letter-spacing: -1px; font-weight: 700; }
+.tv5-heading { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.tv5-count { color: var(--color-primary-dark); border: 1px solid var(--color-border, var(--color-muted)); font-size: 12px; padding: 4px 10px; border-radius: 20px; }
+.tv5-description { color: var(--color-muted); margin: 12px 0 28px; font-size: 14px; }
+.tv5-feedback:empty { display: none; }
+.tv5-feedback { color: var(--color-success, var(--color-primary-dark)); border-left: 3px solid currentColor; padding: 12px 16px; margin-bottom: 20px; overflow-wrap: anywhere; }
+.tv5-feedback[data-error="true"] { color: var(--color-danger); }
+.tv5-state { padding: 32px 0; color: var(--color-muted); }
+.tv5-button { display: inline-flex; justify-content: center; align-items: center; padding: 11px 19px; border: 1px solid var(--color-primary); border-radius: var(--radius); background: var(--color-primary); color: var(--color-surface, var(--color-bg)); cursor: pointer; font-weight: 600; font-size: 14px; line-height: 1.4; }
+.tv5-button:hover { background: var(--color-primary-dark); border-color: var(--color-primary-dark); }
+.tv5-button-secondary { background: var(--color-surface, var(--color-bg)); border-color: var(--color-border, var(--color-muted)); color: var(--color-text); }
+.tv5-button-secondary:hover { background: var(--color-bg); border-color: var(--color-primary); }
+.tv5-button:disabled { cursor: wait; opacity: .6; }
+.tv5-page :is(a, button, input):focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+.wishlist-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.wishlist-item { min-width: 0; }
+.wishlist-empty { text-align: center; padding: 52px 20px; border: 1px dashed var(--color-border, var(--color-muted)); border-radius: var(--radius); background: var(--color-surface, var(--color-bg)); }
+.wishlist-empty-icon { display: block; font-size: 64px; line-height: 1; color: var(--color-primary); margin-bottom: 22px; }
+.wishlist-empty h2 { color: var(--color-text); font-size: 21px; }
+.wishlist-empty p { margin: 10px 0 24px; font-size: 14px; }
+@media (max-width: 1100px) { .wishlist-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tv5-layout { gap: 28px; grid-template-columns: 200px minmax(0, 1fr); } }
+@media (max-width: 720px) {
+  .tv5-layout { grid-template-columns: minmax(0, 1fr); gap: 30px; padding-top: 24px; }
+  .tv5-sidebar nav { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tv5-sidebar nav a { padding: 8px 10px; font-size: 13px; gap: 8px; }
+  .tv5-sidebar-note, .tv5-sidebar > .tv5-eyebrow { display: none; }
+}
+@media (max-width: 420px) { .wishlist-grid { grid-template-columns: minmax(0, 1fr); } }
