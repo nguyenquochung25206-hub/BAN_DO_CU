@@ -1,18 +1,10 @@
-<!--
-FILE   : client/pages/404.html
-CHỦ FILE: TV1 – Frontend UI/UX (Giao diện tổng thể)
-BRANCH : feature/tv1-ui
-NHIỆM VỤ: Trang lỗi 404
-TODO:
-  [ ] Thông báo không tìm thấy + nút về trang chủ
-LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước (xem docs/task-assignment.md).
--->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Không tìm thấy trang | REUSE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/global.css">
@@ -20,12 +12,24 @@ LƯU Ý  : Chỉ chủ file được sửa. Cần đổi -> báo nhóm trước 
   <link rel="stylesheet" href="../css/footer.css">
 </head>
 <body>
-  <!-- Header/Footer do TV1 (main.js) tự chèn vào 2 vị trí này -->
   <div id="site-header"></div>
 
-  <main class="container">
-    <h1>Không tìm thấy trang</h1>
-    <!-- TODO: xây dựng nội dung trang -->
+  <main class="container text-center" style="padding: 5rem 1.25rem;">
+    <div style="max-width: 520px; margin: 0 auto;">
+      <div style="font-size: 5rem; font-weight: 800; color: var(--color-primary); line-height: 1;">404</div>
+      <h1 style="font-size: 1.75rem; font-weight: 700; margin: 1rem 0 0.75rem;">Không tìm thấy trang</h1>
+      <p style="color: var(--color-muted); margin-bottom: 2rem;">
+        Đường dẫn bạn truy cập không tồn tại hoặc sản phẩm đã bị gỡ bỏ khỏi hệ thống.
+      </p>
+      <div class="flex" style="justify-content: center; gap: 0.85rem;">
+        <a href="/index.html" class="btn btn-primary">
+          <i class="fa-solid fa-house"></i> Quay lại trang chủ
+        </a>
+        <a href="/pages/products.html" class="btn btn-outline">
+          <i class="fa-solid fa-bag-shopping"></i> Xem sản phẩm
+        </a>
+      </div>
+    </div>
   </main>
 
   <div id="site-footer"></div>

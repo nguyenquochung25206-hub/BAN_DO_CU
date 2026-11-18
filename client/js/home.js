@@ -8,14 +8,14 @@ async function loadHomeCategories() {
   if (!container) return;
 
   try {
-    // Gọi API thật đã chốt ở Mục 5.2
+    // Gọi API thật đã chốt ở Mục 5.2 (apiFetch tự thêm /api)
     const res = typeof apiFetch === 'function'
-      ? await apiFetch('/api/categories')
+      ? await apiFetch('/categories')
       : await fetch('/api/categories').then(r => r.json());
 
     if (res && res.success && Array.isArray(res.data)) {
       container.innerHTML = res.data.slice(0, 6).map(cat => `
-        <a href="products.html?category_id=${cat.id}" class="category-card">
+        <a href="/pages/products.html?category_id=${cat.id}" class="category-card">
           <div class="category-icon"><i class="fa-solid fa-layer-group"></i></div>
           <div class="category-name">${cat.name}</div>
         </a>
@@ -37,7 +37,7 @@ async function loadHomeCategories() {
   ];
 
   container.innerHTML = fallbackCategories.map(cat => `
-    <a href="products.html?category_id=${cat.id}" class="category-card">
+    <a href="/pages/products.html?category_id=${cat.id}" class="category-card">
       <div class="category-icon"><i class="fa-solid fa-layer-group"></i></div>
       <div class="category-name">${cat.name}</div>
     </a>
@@ -66,9 +66,9 @@ async function loadHomeProducts() {
       wishlistIds = (await loadWishlistIds()) || [];
     }
 
-    // Gọi API thật GET /api/products?sort=newest&limit=8 (Mục 5.2)
+    // Gọi API thật GET /api/products?sort=newest&limit=8 (apiFetch tự thêm /api)
     const res = typeof apiFetch === 'function'
-      ? await apiFetch('/api/products?sort=newest&limit=8')
+      ? await apiFetch('/products?sort=newest&limit=8')
       : await fetch('/api/products?sort=newest&limit=8').then(r => r.json());
 
     if (res && res.success && Array.isArray(res.data)) {
